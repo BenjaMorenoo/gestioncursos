@@ -27,6 +27,8 @@ public class Curso {
     @Column(length = 200, nullable = false)
     private String descripcion;
 
+    private boolean activo = true;
+
 
     
 }

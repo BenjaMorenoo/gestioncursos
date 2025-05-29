@@ -40,6 +40,7 @@ public class CursoService {
             Curso cursoActualizado = cursoExistente.get();
             cursoActualizado.setNombre(curso.getNombre());
             cursoActualizado.setDescripcion(curso.getDescripcion());
+            cursoActualizado.setActivo(curso.isActivo());
             return cursoRepository.save(cursoActualizado);
         }
         return null;
@@ -47,9 +48,9 @@ public class CursoService {
 
     public Curso eliminarCurso(int idCurso) {
         Curso curso = cursoRepository.findById(idCurso);
-        if (curso != null) {
-            cursoRepository.deleteById(idCurso);
-            return curso;
+        if (curso != null && curso.isActivo()) {
+            curso.setActivo(false);
+            return cursoRepository.save(curso);
         }
         return null;
     }
